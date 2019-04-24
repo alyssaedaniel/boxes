@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Test Box Move</title>
+
+    <style>
+
+        .divvyUp
+
+        {
+
+            position: absolute;
+
+            background-color: #FF0000;
+
+            height: 100px;
+
+            width: 100px;
+
+        }
+
+    </style>
+
+ 
+
+</head>
+
+<body>
+
+    <script type="text/javascript">
+
+        window.onload = function()
+
+        {
+
+            var div = document.createElement("div");
+
+            div.id = "myDiv";
+
+            div.classList.add("divvyUp");
+
+            div.style.top = "100px";
+
+            div.style.left = "100px";
+
+            document.body.appendChild(div);
+
+ 
+
+            div.addEventListener("mousedown",mouseDrag,false);
+
+           
+
+            var dragging = false;
+
+            var diffX = 0;
+
+            var diffY = 0;
+
+            var selectedBox = div;
+
+        }
+
+       
+
+        function mouseDrag(e)
+
+        {
+
+            var evt = e || window.event;
+
+            selectedBox = evt.target || evt.srcElement;
+
+            dragging = true;
+
+            diffX = evt.clientX - selectedBox.offsetLeft + selectedBox.scrollLeft;
+
+            diffY = evt.clientY - selectedBox.offsetTop + selectedBox.scrollTop;
+
+            document.addEventListener("mousemove",mouseMove,false);
+
+            document.addEventListener("mouseup",mouseDrop,false);
+
+        }
+
+       
+
+        function mouseMove(e)
+
+        {
+
+            var evt = e || window.event;
+
+            var mouseX = evt.clientX;
+
+            var mouseY = evt.clientY;
+
+           
+
+            selectedBox.style.left = mouseX-diffX+"px";
+
+            selectedBox.style.top = mouseY-diffY+"px";
+
+           
+
+        }
+
+       
+
+        function mouseDrop(e)
+
+        {
+
+            var evt = e || window.event;
+
+            mouseclick = null;
+
+            document.removeEventListener("mousemove",mouseMove,false);
+
+            document.removeEventListener("mouseup",mouseDrop,false);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
